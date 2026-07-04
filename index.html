@@ -48,7 +48,7 @@
   .gift-intro span.gi-sub { font-family: 'Nunito', sans-serif; font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-top: 0.8rem; }
 
   /* ── AMBIENT DECOR: confetti + balloons ── */
-  .decor-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 1; overflow: hidden; }
+  .decor-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 40; overflow: hidden; }
   .confetto { position: absolute; top: -30px; opacity: 0; animation: confFall linear infinite; border-radius: 2px; }
   @keyframes confFall { 0% { transform: translateY(-40px) rotate(0deg); opacity: 0.95; } 100% { transform: translateY(110vh) rotate(540deg); opacity: 0; } }
   .balloon { position: absolute; bottom: -120px; font-size: 2.2rem; opacity: 0.85; animation: balloonUp linear infinite; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.35)); }
@@ -118,10 +118,6 @@
   .polaroid .pin { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); font-size: 1.3rem; filter: drop-shadow(0 3px 4px rgba(0,0,0,0.5)); }
   .polaroid img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; border-radius: 2px; }
   .polaroid figcaption { position: absolute; bottom: 12px; left: 0; right: 0; text-align: center; font-family: 'Sacramento', cursive; font-size: 1.2rem; color: #3a1020; }
-  .memory-add { border: 2px dashed rgba(255,255,255,0.22); border-radius: 12px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: rgba(255,255,255,0.35); min-height: 100%; aspect-ratio: 1/1.28; transition: border-color 0.3s, color 0.3s, background 0.3s; font-family: 'Nunito', sans-serif; text-align: center; padding: 1rem; gap: 0.4rem; }
-  .memory-add:hover { border-color: var(--gold); color: var(--gold-soft); background: rgba(240,180,41,0.05); }
-  .memory-add .plus { font-size: 2rem; line-height: 1; }
-  .memory-add .lbl { font-size: 0.78rem; letter-spacing: 0.05em; }
 
   .lightbox { position: fixed; inset: 0; background: rgba(10,4,20,0.92); backdrop-filter: blur(6px); display: none; align-items: center; justify-content: center; z-index: 3000; padding: 2rem; cursor: zoom-out; }
   .lightbox.active { display: flex; }
@@ -389,14 +385,13 @@
   <span class="section-label">Since the day you became my sister</span>
   <div class="counter-number" id="dayCounter">0</div>
   <p class="counter-caption">days of being my Laado 🌸</p>
-  <p class="counter-edit-note">(counting from a placeholder date — edit START_DATE near the bottom of the file to make this exact)</p>
 </section>
 
 <!-- ═══════════════════════════ MEMORY WALL ═══════════════════════════ -->
 <section class="memory-section">
   <span class="section-label">A little gallery</span>
   <h2>Beautiful moments of <em>strong women</em></h2>
-  <p class="memory-intro">Every photo here is a little pin on the timeline of us. Click any polaroid to see it up close — and there's always room to add more memories as they happen.</p>
+  <p class="memory-intro">Every photo here is a little pin on the timeline of us. Click any polaroid to see it up close.</p>
 
   <div class="memory-wall" id="memoryWall">
     <figure class="polaroid" style="--r:-4deg"><span class="pin">📌</span><img src="WhatsApp Image 2026-03-08 at 10.55.26.jpeg" alt="Strength"/><figcaption>Grace &amp; Strength</figcaption></figure>
@@ -405,8 +400,6 @@
     <figure class="polaroid" style="--r:4deg"><span class="pin">📌</span><img src="WhatsApp Image 2026-03-08 at 10.55.17.jpeg" alt="Sisters"/><figcaption>Sisters</figcaption></figure>
     <figure class="polaroid" style="--r:-3deg"><span class="pin">📌</span><img src="WhatsApp Image 2026-03-08 at 10.55.18.jpeg" alt="Bloom"/><figcaption>Always Blooming</figcaption></figure>
     <figure class="polaroid" style="--r:2deg"><span class="pin">📌</span><img src="WhatsApp Image 2026-03-08 at 10.55.20.jpeg" alt="Radiant"/><figcaption>Radiant</figcaption></figure>
-    <div class="memory-add"><span class="plus">+</span><span class="lbl">Add a new memory</span></div>
-    <div class="memory-add"><span class="plus">+</span><span class="lbl">Add a new memory</span></div>
   </div>
 </section>
 
@@ -712,10 +705,10 @@
   <p>Made with love · July 5, 2026 · For the strongest woman I know</p>
   <div class="footer-actions">
     <button class="footer-btn" id="confettiBtn">🎊 One more round of confetti</button>
-    <button class="footer-btn" id="shakeBtn">📳 Enable shake for confetti</button>
+    <button class="footer-btn" id="cutCakeBtn">🎂 Cut the cake</button>
     <button class="footer-btn ghost" id="hugBtn">🤗 Send a virtual hug</button>
   </div>
-  <p class="footer-shake-note">On phones: enable shake, then give it a little wiggle 🎉</p>
+  <p class="footer-shake-note">Tap the cake for a fresh slice of celebration 🍰</p>
 </footer>
 
 <!-- ═══════════════════════════ AMBIENT TOGGLE ═══════════════════════════ -->
@@ -973,9 +966,8 @@
   });
   lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
 
-  /* ── DAYS COUNTER ──
-     EDIT THIS: set START_DATE to the real date she became "Laado" for an accurate count. */
-  const START_DATE = new Date('2026-01-05T00:00:00');
+  /* ── DAYS COUNTER ── */
+  const START_DATE = new Date('2025-10-23T00:00:00');
   function updateDayCounter() {
     const diffMs = Date.now() - START_DATE.getTime();
     const days = Math.max(0, Math.floor(diffMs / 86400000));
@@ -1075,43 +1067,36 @@
     }
   });
 
-  /* ── SHAKE TO RELEASE CONFETTI ── */
-  const shakeBtn = document.getElementById('shakeBtn');
-  let shakeEnabled = false;
-  let lastShakeTime = 0;
-  let lastAccel = { x: 0, y: 0, z: 0 };
-  function handleMotion(e) {
-    const a = e.accelerationIncludingGravity;
-    if (!a) return;
-    const delta = Math.abs(a.x - lastAccel.x) + Math.abs(a.y - lastAccel.y) + Math.abs(a.z - lastAccel.z);
-    lastAccel = { x: a.x, y: a.y, z: a.z };
-    const now = Date.now();
-    if (delta > 28 && now - lastShakeTime > 1200) {
-      lastShakeTime = now;
-      spawnConfetti(60);
-    }
-  }
-  shakeBtn.addEventListener('click', async () => {
-    if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission === 'function') {
-      try {
-        const res = await DeviceMotionEvent.requestPermission();
-        if (res === 'granted') {
-          window.addEventListener('devicemotion', handleMotion);
-          shakeEnabled = true;
-          shakeBtn.textContent = '📳 Shake enabled — give it a wiggle!';
-        } else {
-          shakeBtn.textContent = '📳 Permission denied';
-        }
-      } catch (err) {
-        shakeBtn.textContent = '📳 Not supported on this device';
-      }
-    } else if (window.DeviceMotionEvent) {
-      window.addEventListener('devicemotion', handleMotion);
-      shakeEnabled = true;
-      shakeBtn.textContent = '📳 Shake enabled — give it a wiggle!';
-    } else {
-      shakeBtn.textContent = '📳 Not supported on this device';
-    }
+  /* ── CUT THE CAKE ── */
+  const cutCakeBtn = document.getElementById('cutCakeBtn');
+  cutCakeBtn.addEventListener('click', () => {
+    cutCakeBtn.disabled = true;
+    const originalLabel = cutCakeBtn.textContent;
+    cutCakeBtn.textContent = '🍰 Fresh slice for you!';
+    spawnConfetti(45);
+
+    // knife-slice flourish near the button
+    const rect = cutCakeBtn.getBoundingClientRect();
+    const knife = document.createElement('div');
+    knife.textContent = '🔪';
+    knife.style.position = 'fixed';
+    knife.style.left = (rect.left + rect.width/2 - 12) + 'px';
+    knife.style.top = (rect.top - 30) + 'px';
+    knife.style.fontSize = '1.4rem';
+    knife.style.zIndex = '4000';
+    knife.style.pointerEvents = 'none';
+    knife.style.transition = 'transform 0.5s ease-in, opacity 0.5s ease-in';
+    document.body.appendChild(knife);
+    requestAnimationFrame(() => {
+      knife.style.transform = 'translateY(70px) rotate(25deg)';
+      knife.style.opacity = '0';
+    });
+    setTimeout(() => knife.remove(), 550);
+
+    setTimeout(() => {
+      cutCakeBtn.textContent = originalLabel;
+      cutCakeBtn.disabled = false;
+    }, 1600);
   });
 
   /* ── PROMISE SCROLL REVEAL ── */
